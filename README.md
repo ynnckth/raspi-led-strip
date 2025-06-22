@@ -1,6 +1,23 @@
-# LED Strip
+# Raspberry Pi LED Strip
+*WS2812B LED Strip Raspberry Pi Setup and Example*
+
+## Prerequisites
+- Raspberry Pi (tested with models 3/B+ and 4/B+)
+- WS2812B LED strip
+
+## Hardware setup
+- LED strip high to 5v pin on Pi (check pin layout using `pinout` command on the Pi)
+- LED strip ground to GND pin on Pi
+- LED strip data to GPIO18 pin on Pi
+
 
 ## Installation & setup
+Disable output on GPIO18 pin: 
+```shell
+sudo nano /boot/config.txt
+# Ensure the following value is off:
+# dtparam=audio=off
+```
 
 ```shell
 # Create a project folder

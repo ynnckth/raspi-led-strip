@@ -18,8 +18,7 @@ sudo usermod -aG gpio $USER
 sudo reboot
 ```
 
-
-### Troubleshooting
+### Troubleshooting
 
 In some cases `adafruit-blinka` installs the wrong GPIO module (Jetson error when starting server).
 In such case, simply uninstall the Jetson GPIO package and re-run the server: 
@@ -27,14 +26,14 @@ In such case, simply uninstall the Jetson GPIO package and re-run the server:
 sudo pip3 uninstall Jetson.GPIO --break-system-packages
 ```
 
-
-## Running manually
+## Running manually
 
 Start the server:
 ```shell
 # Super user rights are required to access GPIO functionality
 sudo python3 server.py
 ```
+
 
 Switch on the LED strip:
 > http://YOUR_RASPI_IP:8888/led-strip/on
@@ -44,7 +43,7 @@ Switch off the LED strip:
 > http://YOUR_RASPI_IP:8888/led-strip/off
 
 
-## Running automatically on system startup
+## Running automatically on system startup
 
 Create a systemd service file
 ```shell

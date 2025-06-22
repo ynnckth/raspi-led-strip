@@ -1,0 +1,119 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS metadata for folders
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+ENV/
+
+# pipenv
+Pipfile.lock
+
+# Poetry
+poetry.lock
+
+# pyenv
+.python-version
+
+# VS Code settings
+.vscode/
+
+# PyCharm settings
+.idea/
+
+# Test output
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+.cache
+nosetests.xml
+pytest_cache/
+test-results/
+
+# MyPy and type-checker reports
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Logs
+*.log
+
+# dotenv
+.env
+.env.*
+
+# Build and dist
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Local dev tools
+*.sqlite3
+*.db
+
+# Anaconda
+.conda/
+*.ipynb
+
+# Unit test / coverage reports
+.cache/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# Pycharm IDE
+.idea/
+
+# VSCode
+.vscode/
+
+# Mac .Trash folder
+.Trashes

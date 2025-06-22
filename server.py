@@ -7,22 +7,28 @@ class LEDRequestHandler(BaseHTTPRequestHandler):
             led.start_rainbow()
             self.send_response(200)
             self.end_headers()
-            print("LED strip switched on")
+            self.wfile.write(b'LED strip switched ON')
         elif self.path == '/led-strip/off':
             led.stop_rainbow()
             self.send_response(200)
             self.end_headers()
-            print("LED strip switched off")
+            self.wfile.write(b'LED strip switched OFF')
         else:
             self.send_response(404)
             self.end_headers()
-            print("Unknown path")
+            self.wfile.write(b'Not Found')
 
-def run(server_class=HTTPServer, handler_class=LEDRequestHandler, port=8888):
-    server_address = ('', port)
-    httpd = server_class(server_address, handler_class)
-    httpd.serve_forever()
-    print(f"Server started on port {port}...")
+    def do_HEAD(self):
+        self.send_response(200)
+        self.end_headers()
 
-if __name__ == '__main__':
-    run()
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET")
+        self.send_header("Access-Control-Allow-Headers", "*")
+        self.end_headers()
+
+    def do_POST(self):
+        self.send_response(405)
+        self.end_headers()

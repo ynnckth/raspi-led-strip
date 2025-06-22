@@ -32,3 +32,12 @@ class LEDRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         self.send_response(405)
         self.end_headers()
+
+def run(server_class=HTTPServer, handler_class=LEDRequestHandler, port=8888):
+    server_address = ('', port)
+    httpd = server_class(server_address, handler_class)
+    print(f"Started server on port {port}...")
+    httpd.serve_forever()
+
+if __name__ == '__main__':
+    run()

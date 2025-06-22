@@ -16,7 +16,7 @@ def red_on():
     return "LED strip red pulse ON", 200
 
 @app.route('/led-strip/blue/on', methods=['GET'])
-def red_on():
+def blue_on():
     led.start_blue()
     print("Blue pulse switched ON")
     return "LED strip blue pulse ON", 200

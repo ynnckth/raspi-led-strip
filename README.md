@@ -19,12 +19,12 @@ sudo nano /boot/config.txt
 # dtparam=audio=off
 ```
 
+Create project folder and install dependencies:
 ```shell
 # Create a project folder
 mkdir led-strip
 cd led-strip
 
-# Install required python dependencies for addressing the LED strip using the raspberry's GPIO pins
 sudo apt update
 
 pip3 install flask
@@ -36,7 +36,7 @@ sudo usermod -aG gpio $USER
 sudo reboot
 ```
 
-### Troubleshooting
+### Troubleshooting installation
 
 In some cases `adafruit-blinka` installs the wrong GPIO module (Jetson error when starting server).
 In such case, simply uninstall the Jetson GPIO package and re-run the server: 
@@ -51,7 +51,6 @@ Start the server:
 # Super user rights are required to access GPIO functionality
 sudo python3 server.py
 ```
-
 
 Switch on the LED strip:
 > http://YOUR_RASPI_IP:8888/led-strip/on

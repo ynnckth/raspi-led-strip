@@ -49,8 +49,10 @@ Start the server:
 sudo python3 server.py
 ```
 
-- Switch on the LED strip: [http://YOUR_RASPI_IP:8888/led-strip/rainbow/on](http://YOUR_RASPI_IP:8888/led-strip/rainbow/on)
-- Switch off the LED strip: [http://YOUR_RASPI_IP:8888/led-strip/rainbow/off](http://YOUR_RASPI_IP:8888/led-strip/rainbow/off)
+- Switch on the LED strip in rainbow mode: [http://YOUR_RASPI_IP:8888/led-strip/rainbow/on](http://YOUR_RASPI_IP:8888/led-strip/rainbow/on)
+- Switch on the LED strip in red pulse mode: [http://YOUR_RASPI_IP:8888/led-strip/red/on](http://YOUR_RASPI_IP:8888/led-strip/red/on)
+- Switch on the LED strip in blue pulse mode: [http://YOUR_RASPI_IP:8888/led-strip/blue/on](http://YOUR_RASPI_IP:8888/led-strip/blue/on)
+- Switch off the LED strip: [http://YOUR_RASPI_IP:8888/led-strip/off](http://YOUR_RASPI_IP:8888/led-strip/off)
 
 
 ## Running automatically on system startup

@@ -19,6 +19,7 @@ _current_mode = None
 class LedMode(Enum):
     RAINBOW = auto()
     RED = auto()
+    BLUE = auto()
 
 
 def wheel(pos):
@@ -52,7 +53,7 @@ def rainbow_cycle(wait=0.001):
             pixels.show()
             time.sleep(wait)
 
-def red_pulse(wait=0.01):
+def red_pulse(wait=0.1):
     global _running
     while _running:
         # Brighten up
@@ -70,6 +71,25 @@ def red_pulse(wait=0.01):
             pixels.show()
             time.sleep(wait)
 
+def blue_pulse(wait=0.1):
+    global _running
+    while _running:
+        # Brighten up
+        for intensity in range(20, 256, 5):
+            if not _running:
+                break
+            pixels.fill((0, 0, intensity))  # blue channel only
+            pixels.show()
+            time.sleep(wait)
+        # Dim down
+        for intensity in range(255, 19, -5):
+            if not _running:
+                break
+            pixels.fill((0, 0, intensity))
+            pixels.show()
+            time.sleep(wait)
+
+
 def _start_animation(mode: LedMode):
     global _running, _thread, _current_mode
 
@@ -86,6 +106,8 @@ def _start_animation(mode: LedMode):
         target = rainbow_cycle
     elif mode == LedMode.RED:
         target = red_pulse
+    elif mode == LedMode.BLUE:
+        target = blue_pulse
     else:
         return
 
@@ -104,11 +126,11 @@ def _stop_animation():
 def start_rainbow():
     _start_animation(LedMode.RAINBOW)
 
-def stop_rainbow():
-    _stop_animation()
-
 def start_red():
     _start_animation(LedMode.RED)
 
-def stop_red():
+def start_blue():
+    _start_animation(LedMode.BLUE)
+
+def stop(): 
     _stop_animation()

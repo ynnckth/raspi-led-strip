@@ -1,9 +1,10 @@
 # Raspberry Pi LED Strip
-*WS2812B LED Strip Raspberry Pi Setup and Example*
+*WS2812B LED Strip connected to a Raspberry Pi*
 
 ## Prerequisites
 - Raspberry Pi (tested with models 3/B+ and 4/B+)
 - WS2812B LED strip
+- Python and Pip
 
 ## Hardware setup
 - LED strip high to 5v pin on Pi (check pin layout using `pinout` command on the Pi)
@@ -19,12 +20,8 @@ sudo nano /boot/config.txt
 # dtparam=audio=off
 ```
 
-Create project folder and install dependencies:
+Install dependencies:
 ```shell
-# Create a project folder
-mkdir led-strip
-cd led-strip
-
 sudo apt update
 
 pip3 install flask
@@ -52,12 +49,8 @@ Start the server:
 sudo python3 server.py
 ```
 
-Switch on the LED strip:
-> http://YOUR_RASPI_IP:8888/led-strip/on
-
-
-Switch off the LED strip:
-> http://YOUR_RASPI_IP:8888/led-strip/off
+- Switch on the LED strip: [http://YOUR_RASPI_IP:8888/led-strip/rainbow/on](http://YOUR_RASPI_IP:8888/led-strip/rainbow/on)
+- Switch off the LED strip: [http://YOUR_RASPI_IP:8888/led-strip/rainbow/off](http://YOUR_RASPI_IP:8888/led-strip/rainbow/off)
 
 
 ## Running automatically on system startup
@@ -74,8 +67,8 @@ Description=LED Strip Control HTTP Server
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 /home/pi/led-strip/server.py
-WorkingDirectory=/home/pi/led-strip
+ExecStart=/usr/bin/python3 /home/pi/raspi-led-strip/server.py
+WorkingDirectory=/home/pi/raspi-led-strip
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
@@ -101,3 +94,7 @@ View logs:
 ```shell
 journalctl -u led-strip.service -f
 ```
+
+## Useful links
+
+- [Adafruit tutorial](https://learn.adafruit.com/neopixels-on-raspberry-pi/python-usage)

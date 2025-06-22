@@ -2,15 +2,10 @@ import time
 import board
 import neopixel
 import threading
+from enum import Enum, auto
 
-# NeoPixels must be connected to D10, D12, D18 or D21 to work
 pixel_pin = board.D18
-
-# The number of NeoPixels
 num_pixels = 9
-
-# The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed!
-# For RGBW NeoPixels, simply change the ORDER to RGBW or GRBW.
 ORDER = neopixel.GRB
 
 pixels = neopixel.NeoPixel(
@@ -19,10 +14,14 @@ pixels = neopixel.NeoPixel(
 
 _running = False
 _thread = None
+_current_mode = None
+
+class LedMode(Enum):
+    RAINBOW = auto()
+    RED = auto()
+
 
 def wheel(pos):
-    # Input a value 0 to 255 to get a color value.
-    # The colours are a transition r - g - b - back to r.
     if pos < 0 or pos > 255:
         r = g = b = 0
     elif pos < 85:
@@ -41,7 +40,6 @@ def wheel(pos):
         b = int(255 - pos * 3)
     return (r, g, b) if ORDER in {neopixel.RGB, neopixel.GRB} else (r, g, b, 0)
 
-
 def rainbow_cycle(wait=0.001):
     global _running
     while _running:
@@ -54,17 +52,63 @@ def rainbow_cycle(wait=0.001):
             pixels.show()
             time.sleep(wait)
 
-def start_rainbow():
-    global _running, _thread
+def red_pulse(wait=0.01):
+    global _running
+    while _running:
+        # Brighten up
+        for intensity in range(20, 256, 5):
+            if not _running:
+                break
+            pixels.fill((intensity, 0, 0))  # red channel only
+            pixels.show()
+            time.sleep(wait)
+        # Dim down
+        for intensity in range(255, 19, -5):
+            if not _running:
+                break
+            pixels.fill((intensity, 0, 0))
+            pixels.show()
+            time.sleep(wait)
+
+def _start_animation(mode: LedMode):
+    global _running, _thread, _current_mode
+
     if _running:
-        return  # already running
+        if _current_mode == mode:
+            return  # same mode, already running — do nothing
+        else:
+            _stop_animation()  # stop current mode first
+
     _running = True
-    _thread = threading.Thread(target=rainbow_cycle, daemon=True)
+    _current_mode = mode
+
+    if mode == LedMode.RAINBOW:
+        target = rainbow_cycle
+    elif mode == LedMode.RED:
+        target = red_pulse
+    else:
+        return
+
+    _thread = threading.Thread(target=target, daemon=True)
     _thread.start()
 
 
-def stop_rainbow():
-    global _running
+def _stop_animation():
+    global _running, _current_mode
     _running = False
+    _current_mode = None
     pixels.fill((0, 0, 0))
     pixels.show()
+
+
+def start_rainbow():
+    _start_animation(LedMode.RAINBOW)
+
+def stop_rainbow():
+    _stop_animation()
+
+def start_red():
+    _start_animation(LedMode.RED)
+
+def stop_red():
+    _stop_animation()

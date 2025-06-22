@@ -15,5 +15,18 @@ def led_off():
     print("Rainbow switched OFF")
     return "LED strip rainbow OFF", 200
 
+@app.route('/led-strip/red/on', methods=['GET'])
+def red_on():
+    led.start_red()
+    print("Red pulse switched ON")
+    return "LED strip red pulse ON", 200
+
+@app.route('/led-strip/red/off', methods=['GET'])
+def red_off():
+    led.stop_red()
+    print("Red pulse switched OFF")
+    return "LED strip red pulse OFF", 200
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888)

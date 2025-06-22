@@ -1,6 +1,6 @@
 # LED Strip
 
-## Installation & Setup
+## Installation & setup
 
 ```shell
 # Create a project folder
@@ -12,24 +12,76 @@ sudo apt update
 
 sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel --break-system-packages
 sudo python3 -m pip install --force-reinstall adafruit-blinka --break-system-packages
-sudo pip3 uninstall Jetson.GPIO --break-system-packages
 
 # Add the current user (pi) to the gpio group and reboot
 sudo usermod -aG gpio $USER
 sudo reboot
 ```
 
-## Running the Server
+
+### Troubleshooting
+
+In some cases `adafruit-blinka` installs the wrong GPIO module (Jetson error when starting server).
+In such case, simply uninstall the Jetson GPIO package and re-run the server: 
+```shell 
+sudo pip3 uninstall Jetson.GPIO --break-system-packages
+```
+
+
+## Running manually
 
 Start the server:
 ```shell
-python3 server.py
+# Super user rights are required to access GPIO functionality
+sudo python3 server.py
 ```
 
 Switch on the LED strip:
-> http://<ip>:8888/led-strip/on
+> http://YOUR_RASPI_IP:8888/led-strip/on
 
 
 Switch off the LED strip:
-> http://<ip>:8888/led-strip/off
+> http://YOUR_RASPI_IP:8888/led-strip/off
 
+
+## Running automatically on system startup
+
+Create a systemd service file
+```shell
+sudo nano /etc/systemd/system/led-strip.service
+```
+
+Paste the following content (adapt the path to your project files):
+```
+[Unit]
+Description=LED Strip Control HTTP Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/led-strip/server.py
+WorkingDirectory=/home/pi/led-strip
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Reload systemd, enable and start the service: 
+```shell
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl enable led-strip.service
+sudo systemctl start led-strip.service
+```
+
+Confirm it's running:
+```shell
+sudo systemctl status led-strip.service
+```
+
+View logs:
+```shell
+journalctl -u led-strip.service -f
+```

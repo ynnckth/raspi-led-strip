@@ -27,6 +27,7 @@ cd led-strip
 # Install required python dependencies for addressing the LED strip using the raspberry's GPIO pins
 sudo apt update
 
+pip3 install flask
 sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel --break-system-packages
 sudo python3 -m pip install --force-reinstall adafruit-blinka --break-system-packages
 

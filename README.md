@@ -1,6 +1,10 @@
 # Raspberry Pi LED Strip
 *WS2812B LED Strip connected to a Raspberry Pi*
 
+<p align="center">
+  <img src="images/demo.jpeg" alt="Demo image" style="max-width: 250px; width: 100%;">
+</p>
+
 ## Prerequisites
 - Raspberry Pi (tested with models 3/B+ and 4/B+)
 - WS2812B LED strip
